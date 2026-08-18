@@ -1,277 +1,135 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#080b16">
-<title>Voxify TTS — Free Text to Speech</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voxify TTS</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-
-:root{
-  --bg:#070a12;
-  --card:#101522;
-  --card2:#151c2c;
-  --border:#26314a;
-  --text:#f7f9ff;
-  --muted:#8c98b5;
-  --primary:#00d9ff;
-  --secondary:#735cff;
-  --danger:#ff416c;
+*{
+  box-sizing:border-box;
 }
 
 body{
-  min-height:100vh;
-  background:
-    radial-gradient(circle at 15% 10%,rgba(0,217,255,.12),transparent 30%),
-    radial-gradient(circle at 85% 15%,rgba(115,92,255,.16),transparent 30%),
-    var(--bg);
-  color:var(--text);
-  font-family:Inter,Arial,sans-serif;
-  padding:18px;
+  margin:0;
+  padding:15px;
+  font-family:Arial,sans-serif;
+  background:#080b14;
+  color:white;
 }
 
 .app{
-  max-width:1000px;
+  width:100%;
+  max-width:800px;
   margin:auto;
 }
 
-header{
+h1{
   text-align:center;
-  padding:20px 10px 25px;
+  color:#00d9ff;
+  margin:15px 0 5px;
 }
 
-.logo{
-  font-size:36px;
-  font-weight:900;
-  letter-spacing:-1px;
-  background:linear-gradient(90deg,#00d9ff,#735cff,#ff4ecd);
-  -webkit-background-clip:text;
-  color:transparent;
+.sub{
+  text-align:center;
+  color:#8994ad;
+  margin-bottom:20px;
 }
 
-.tagline{
-  margin-top:7px;
-  color:var(--muted);
-}
-
-.card{
-  background:rgba(16,21,34,.88);
-  border:1px solid var(--border);
-  border-radius:24px;
-  padding:20px;
-  box-shadow:0 25px 70px rgba(0,0,0,.4);
-}
-
-.text-wrap{
-  position:relative;
+.box{
+  background:#111827;
+  padding:18px;
+  border-radius:20px;
+  border:1px solid #26334d;
 }
 
 textarea{
-  display:block;
   width:100%;
-  min-height:300px;
+  height:250px;
   resize:vertical;
-  border:1px solid var(--border);
-  border-radius:18px;
+  background:#070b13;
+  color:white;
+  border:1px solid #34415d;
+  border-radius:14px;
+  padding:15px;
+  font-size:17px;
   outline:none;
-  padding:20px;
-  background:#080c15;
-  color:var(--text);
-  font-size:18px;
-  line-height:1.65;
-  transition:.2s;
 }
 
 textarea:focus{
-  border-color:var(--primary);
-  box-shadow:0 0 25px rgba(0,217,255,.09);
-}
-
-.counter{
-  position:absolute;
-  right:15px;
-  bottom:12px;
-  color:#697691;
-  font-size:12px;
-  background:#080c15;
-  padding:4px 8px;
-  border-radius:8px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:15px;
-  margin-top:18px;
-}
-
-.field{
-  background:var(--card2);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:14px;
-}
-
-label{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:9px;
-  color:#aeb9d3;
-  font-size:13px;
-  font-weight:700;
+  border-color:#00d9ff;
 }
 
 select{
   width:100%;
-  border:1px solid #303b55;
-  border-radius:11px;
-  padding:12px;
-  outline:none;
+  padding:13px;
+  margin-top:8px;
+  background:#070b13;
   color:white;
-  background:#080c15;
+  border:1px solid #34415d;
+  border-radius:10px;
 }
 
-input[type=range]{
+label{
+  display:block;
+  margin-top:15px;
+  color:#b7c1d8;
+}
+
+input[type="range"]{
   width:100%;
-  accent-color:var(--primary);
-  cursor:pointer;
-}
-
-.range-value{
-  color:var(--primary);
-}
-
-.buttons{
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr 1fr;
-  gap:10px;
-  margin-top:18px;
+  accent-color:#00d9ff;
 }
 
 button{
+  width:100%;
+  padding:14px;
+  margin-top:10px;
   border:0;
-  border-radius:13px;
-  padding:14px 12px;
+  border-radius:11px;
   color:white;
-  font-size:14px;
-  font-weight:800;
+  font-weight:bold;
+  font-size:15px;
   cursor:pointer;
-  transition:.18s;
-}
-
-button:hover{
-  transform:translateY(-2px);
-  filter:brightness(1.1);
-}
-
-button:active{
-  transform:scale(.98);
 }
 
 .speak{
-  background:linear-gradient(90deg,#00bcd4,#2563eb);
+  background:#008fc4;
 }
 
 .pause{
-  background:#35405c;
+  background:#45516c;
 }
 
 .resume{
-  background:#3b327b;
+  background:#5343a8;
 }
 
 .stop{
-  background:#8c2942;
-}
-
-.utility{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-top:10px;
-}
-
-.copy{
-  background:#1c6a57;
+  background:#a52e49;
 }
 
 .clear{
-  background:#51304d;
+  background:#333d52;
 }
 
-.status{
-  min-height:24px;
+#status{
   text-align:center;
-  margin-top:16px;
-  color:var(--primary);
-  font-size:14px;
-  font-weight:700;
+  margin-top:15px;
+  color:#00d9ff;
+  min-height:20px;
 }
 
-.info{
-  margin-top:17px;
-  padding:15px;
-  border-radius:14px;
-  background:#0b101c;
-  border:1px solid #202a40;
-  color:#8490aa;
-  line-height:1.6;
+.count{
+  text-align:right;
+  color:#6f7c97;
   font-size:12px;
+  margin-top:5px;
 }
 
-.info strong{
-  color:#c6d0e5;
-}
-
-footer{
-  text-align:center;
-  color:#58637b;
-  font-size:12px;
-  padding:22px 0 5px;
-}
-
-@media(max-width:700px){
-  body{padding:10px}
-
-  .logo{font-size:29px}
-
-  .card{
-    padding:13px;
-    border-radius:19px;
-  }
-
+@media(max-width:600px){
   textarea{
-    min-height:240px;
-    font-size:16px;
-  }
-
-  .grid{
-    grid-template-columns:1fr;
-  }
-
-  .buttons{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .speak{
-    grid-column:1/-1;
-  }
-}
-
-@media(max-width:400px){
-  .buttons{
-    grid-template-columns:1fr;
-  }
-
-  .speak{
-    grid-column:auto;
-  }
-
-  .utility{
-    grid-template-columns:1fr;
+    height:220px;
   }
 }
 </style>
@@ -281,601 +139,349 @@ footer{
 
 <div class="app">
 
-<header>
-  <div class="logo">🎙️ Voxify TTS</div>
-  <div class="tagline">Free Browser Text-to-Speech • Multi-Language</div>
-</header>
+<h1>🎙️ Voxify TTS</h1>
 
-<main class="card">
+<div class="sub">
+Free Browser Text To Speech
+</div>
 
-  <div class="text-wrap">
+<div class="box">
 
-    <textarea id="text"
-      placeholder="Type or paste your text here...
+<textarea id="text" placeholder="Type your text here...
 
-Example:
-Hello! Welcome to Voxify TTS.
-السلام علیکم! یہ ایک ٹیسٹ ہے۔
-नमस्ते! यह एक परीक्षण है।"></textarea>
+Hello world!
+السلام علیکم
+नमस्ते
+こんにちは"></textarea>
 
-    <div class="counter">
-      <span id="charCount">0</span> characters
-    </div>
+<div class="count">
+<span id="count">0</span> characters
+</div>
 
-  </div>
+<label>🌍 Language</label>
+<select id="language">
+<option value="all">All Languages</option>
+</select>
 
-  <div class="grid">
+<label>🎙️ Voice</label>
+<select id="voice">
+<option value="">Loading voices...</option>
+</select>
 
-    <div class="field">
-      <label>
-        <span>🌍 Language</span>
-      </label>
+<label>
+⚡ Speed:
+<span id="speedText">1.0</span>
+</label>
 
-      <select id="language">
-        <option value="all">All Languages</option>
-      </select>
-    </div>
+<input id="speed" type="range"
+min="0.3" max="2" step="0.1" value="1">
 
-    <div class="field">
-      <label>
-        <span>🎙️ Voice</span>
-      </label>
+<label>
+🎵 Pitch:
+<span id="pitchText">1.0</span>
+</label>
 
-      <select id="voice">
-        <option value="">Loading voices...</option>
-      </select>
-    </div>
+<input id="pitch" type="range"
+min="0" max="2" step="0.1" value="1">
 
-    <div class="field">
-      <label>
-        <span>⚡ Speed</span>
-        <span class="range-value" id="rateValue">1.0x</span>
-      </label>
+<label>
+🔊 Volume:
+<span id="volumeText">100%</span>
+</label>
 
-      <input
-        id="rate"
-        type="range"
-        min="0.3"
-        max="2"
-        value="1"
-        step="0.1">
-    </div>
+<input id="volume" type="range"
+min="0" max="1" step="0.1" value="1">
 
-    <div class="field">
-      <label>
-        <span>🎵 Pitch</span>
-        <span class="range-value" id="pitchValue">1.0</span>
-      </label>
+<button class="speak" onclick="speak()">
+▶️ SPEAK
+</button>
 
-      <input
-        id="pitch"
-        type="range"
-        min="0"
-        max="2"
-        value="1"
-        step="0.1">
-    </div>
+<button class="pause" onclick="pauseSpeech()">
+⏸️ PAUSE
+</button>
 
-    <div class="field">
-      <label>
-        <span>🔊 Volume</span>
-        <span class="range-value" id="volumeValue">100%</span>
-      </label>
+<button class="resume" onclick="resumeSpeech()">
+▶️ RESUME
+</button>
 
-      <input
-        id="volume"
-        type="range"
-        min="0"
-        max="1"
-        value="1"
-        step="0.1">
-    </div>
+<button class="stop" onclick="stopSpeech()">
+⏹️ STOP
+</button>
 
-  </div>
+<button class="clear" onclick="clearText()">
+🗑️ CLEAR
+</button>
 
-  <div class="buttons">
+<div id="status">
+Loading...
+</div>
 
-    <button class="speak" id="speakBtn">
-      ▶️ Speak
-    </button>
-
-    <button class="pause" id="pauseBtn">
-      ⏸️ Pause
-    </button>
-
-    <button class="resume" id="resumeBtn">
-      ▶️ Resume
-    </button>
-
-    <button class="stop" id="stopBtn">
-      ⏹️ Stop
-    </button>
-
-  </div>
-
-  <div class="utility">
-
-    <button class="copy" id="copyBtn">
-      📋 Copy Text
-    </button>
-
-    <button class="clear" id="clearBtn">
-      🗑️ Clear
-    </button>
-
-  </div>
-
-  <div class="status" id="status">
-    Ready
-  </div>
-
-  <div class="info">
-    <strong>How it works:</strong>
-    Voxify uses your browser/device's native Speech Synthesis engine.
-    Available languages and voices depend on the voices installed or
-    provided by your device and browser.
-    No API key or paid service is required.
-  </div>
-
-</main>
-
-<footer>
-  Voxify TTS • Free • Browser Based
-</footer>
-
+</div>
 </div>
 
 <script>
 
-const text = document.getElementById("text");
-const language = document.getElementById("language");
-const voiceSelect = document.getElementById("voice");
+var synth = window.speechSynthesis;
 
-const rate = document.getElementById("rate");
-const pitch = document.getElementById("pitch");
-const volume = document.getElementById("volume");
+var voices = [];
 
-const rateValue = document.getElementById("rateValue");
-const pitchValue = document.getElementById("pitchValue");
-const volumeValue = document.getElementById("volumeValue");
+var textBox = document.getElementById("text");
+var voiceBox = document.getElementById("voice");
+var languageBox = document.getElementById("language");
 
-const charCount = document.getElementById("charCount");
-const status = document.getElementById("status");
+var speed = document.getElementById("speed");
+var pitch = document.getElementById("pitch");
+var volume = document.getElementById("volume");
 
-const speakBtn = document.getElementById("speakBtn");
-const pauseBtn = document.getElementById("pauseBtn");
-const resumeBtn = document.getElementById("resumeBtn");
-const stopBtn = document.getElementById("stopBtn");
-
-const copyBtn = document.getElementById("copyBtn");
-const clearBtn = document.getElementById("clearBtn");
-
-let voices = [];
-let filteredVoices = [];
-
-const synth = window.speechSynthesis;
-
-function setStatus(message){
-  status.textContent = message;
-}
-
-/* --------------------------------
-   LOAD VOICES
--------------------------------- */
+var statusBox = document.getElementById("status");
 
 function loadVoices(){
 
-  voices = synth.getVoices();
+    voices = synth.getVoices();
 
-  if(!voices || voices.length === 0){
-    voiceSelect.innerHTML =
-      '<option value="">No voices loaded yet...</option>';
+    if(voices.length === 0){
 
-    setStatus("Loading browser voices...");
-    return;
-  }
+        statusBox.innerHTML =
+        "⏳ Waiting for browser voices...";
 
-  voices.sort((a,b)=>{
+        return;
+    }
 
-    if(a.default && !b.default) return -1;
-    if(!a.default && b.default) return 1;
+    voiceBox.innerHTML = "";
 
-    return a.lang.localeCompare(b.lang);
-
-  });
-
-  buildLanguageList();
-
-  filterVoices();
-
-  setStatus(
-    `${voices.length} voice${voices.length === 1 ? "" : "s"} available`
-  );
-}
-
-/* --------------------------------
-   LANGUAGE LIST
--------------------------------- */
-
-function buildLanguageList(){
-
-  const langs = [
-    ...new Set(
-      voices.map(v => v.lang).filter(Boolean)
-    )
-  ];
-
-  langs.sort((a,b)=>a.localeCompare(b));
-
-  language.innerHTML =
+    languageBox.innerHTML =
     '<option value="all">🌍 All Languages</option>';
 
-  langs.forEach(lang=>{
+    var languages = [];
 
-    const option = document.createElement("option");
+    for(var i=0;i<voices.length;i++){
 
-    option.value = lang;
-    option.textContent = lang;
+        var v = voices[i];
 
-    language.appendChild(option);
+        var option =
+        document.createElement("option");
 
-  });
+        option.value = i;
+
+        option.textContent =
+        v.name + " — " + v.lang;
+
+        voiceBox.appendChild(option);
+
+        if(languages.indexOf(v.lang) === -1){
+
+            languages.push(v.lang);
+
+        }
+    }
+
+    languages.sort();
+
+    for(var j=0;j<languages.length;j++){
+
+        var langOption =
+        document.createElement("option");
+
+        langOption.value = languages[j];
+
+        langOption.textContent =
+        languages[j];
+
+        languageBox.appendChild(langOption);
+    }
+
+    statusBox.innerHTML =
+    "✅ " + voices.length + " voices available";
 }
-
-/* --------------------------------
-   FILTER VOICES
--------------------------------- */
 
 function filterVoices(){
 
-  const selectedLanguage = language.value;
+    var selected =
+    languageBox.value;
 
-  filteredVoices = voices.filter(voice => {
+    voiceBox.innerHTML = "";
 
-    if(selectedLanguage === "all"){
-      return true;
+    for(var i=0;i<voices.length;i++){
+
+        if(
+          selected === "all" ||
+          voices[i].lang === selected
+        ){
+
+            var option =
+            document.createElement("option");
+
+            option.value = i;
+
+            option.textContent =
+            voices[i].name +
+            " — " +
+            voices[i].lang;
+
+            voiceBox.appendChild(option);
+        }
+    }
+}
+
+function speak(){
+
+    var message =
+    textBox.value.trim();
+
+    if(message === ""){
+
+        statusBox.innerHTML =
+        "⚠️ Please enter text.";
+
+        return;
     }
 
-    return voice.lang === selectedLanguage;
+    synth.cancel();
 
-  });
+    var speech =
+    new SpeechSynthesisUtterance(message);
 
-  voiceSelect.innerHTML = "";
+    var index =
+    parseInt(voiceBox.value);
 
-  if(filteredVoices.length === 0){
+    if(
+      !isNaN(index) &&
+      voices[index]
+    ){
 
-    voiceSelect.innerHTML =
-      '<option value="">No voice available</option>';
+        speech.voice =
+        voices[index];
 
-    return;
-  }
+        speech.lang =
+        voices[index].lang;
+    }
 
-  filteredVoices.forEach((voice,index)=>{
+    speech.rate =
+    parseFloat(speed.value);
 
-    const option = document.createElement("option");
+    speech.pitch =
+    parseFloat(pitch.value);
 
-    option.value = index;
+    speech.volume =
+    parseFloat(volume.value);
 
-    option.textContent =
-      `${voice.name} — ${voice.lang}${voice.default ? " ★" : ""}`;
+    speech.onstart = function(){
 
-    voiceSelect.appendChild(option);
+        statusBox.innerHTML =
+        "🔊 Speaking...";
+    };
 
-  });
+    speech.onend = function(){
+
+        statusBox.innerHTML =
+        "✅ Finished";
+    };
+
+    speech.onerror = function(){
+
+        statusBox.innerHTML =
+        "❌ TTS error. Try another voice.";
+    };
+
+    synth.speak(speech);
 }
-
-language.addEventListener("change",filterVoices);
-
-/* --------------------------------
-   SPEAK
--------------------------------- */
-
-function speakText(){
-
-  const value = text.value.trim();
-
-  if(!value){
-
-    setStatus("⚠️ Please enter some text first.");
-
-    text.focus();
-
-    return;
-  }
-
-  if(!("speechSynthesis" in window)){
-
-    setStatus(
-      "❌ Speech Synthesis is not supported by this browser."
-    );
-
-    return;
-  }
-
-  synth.cancel();
-
-  const utterance =
-    new SpeechSynthesisUtterance(value);
-
-  const selectedIndex =
-    Number(voiceSelect.value);
-
-  const selectedVoice =
-    filteredVoices[selectedIndex];
-
-  if(selectedVoice){
-
-    utterance.voice = selectedVoice;
-    utterance.lang = selectedVoice.lang;
-
-  }
-
-  utterance.rate =
-    Number(rate.value);
-
-  utterance.pitch =
-    Number(pitch.value);
-
-  utterance.volume =
-    Number(volume.value);
-
-  utterance.onstart = ()=>{
-
-    setStatus("🔊 Speaking...");
-
-    speakBtn.textContent = "🔊 Speaking";
-
-  };
-
-  utterance.onpause = ()=>{
-
-    setStatus("⏸️ Paused");
-
-  };
-
-  utterance.onresume = ()=>{
-
-    setStatus("▶️ Speaking...");
-
-  };
-
-  utterance.onend = ()=>{
-
-    setStatus("✅ Finished");
-
-    speakBtn.textContent = "▶️ Speak";
-
-  };
-
-  utterance.onerror = (event)=>{
-
-    console.log("TTS error:",event);
-
-    setStatus("❌ Speech error. Try another voice.");
-
-    speakBtn.textContent = "▶️ Speak";
-
-  };
-
-  synth.speak(utterance);
-
-}
-
-/* --------------------------------
-   PAUSE
--------------------------------- */
 
 function pauseSpeech(){
 
-  if(synth.speaking && !synth.paused){
+    if(synth.speaking){
 
-    synth.pause();
+        synth.pause();
 
-    setStatus("⏸️ Paused");
-
-  }
-
+        statusBox.innerHTML =
+        "⏸️ Paused";
+    }
 }
-
-/* --------------------------------
-   RESUME
--------------------------------- */
 
 function resumeSpeech(){
 
-  if(synth.paused){
+    if(synth.paused){
 
-    synth.resume();
+        synth.resume();
 
-    setStatus("▶️ Speaking...");
-
-  }
-
+        statusBox.innerHTML =
+        "▶️ Resumed";
+    }
 }
-
-/* --------------------------------
-   STOP
--------------------------------- */
 
 function stopSpeech(){
 
-  synth.cancel();
+    synth.cancel();
 
-  setStatus("⏹️ Stopped");
-
-  speakBtn.textContent = "▶️ Speak";
-
+    statusBox.innerHTML =
+    "⏹️ Stopped";
 }
 
-/* --------------------------------
-   CHARACTER COUNTER
--------------------------------- */
+function clearText(){
 
-text.addEventListener("input",()=>{
+    synth.cancel();
 
-  charCount.textContent =
-    text.value.length.toLocaleString();
+    textBox.value = "";
 
+    document.getElementById("count")
+    .innerHTML = "0";
+
+    statusBox.innerHTML =
+    "🗑️ Cleared";
+}
+
+textBox.addEventListener(
+"input",
+function(){
+
+    document.getElementById("count")
+    .innerHTML =
+    textBox.value.length;
 });
 
-/* --------------------------------
-   SPEED
--------------------------------- */
+speed.addEventListener(
+"input",
+function(){
 
-rate.addEventListener("input",()=>{
-
-  rateValue.textContent =
-    Number(rate.value).toFixed(1) + "x";
-
+    document.getElementById("speedText")
+    .innerHTML =
+    speed.value;
 });
 
-/* --------------------------------
-   PITCH
--------------------------------- */
+pitch.addEventListener(
+"input",
+function(){
 
-pitch.addEventListener("input",()=>{
-
-  pitchValue.textContent =
-    Number(pitch.value).toFixed(1);
-
+    document.getElementById("pitchText")
+    .innerHTML =
+    pitch.value;
 });
 
-/* --------------------------------
-   VOLUME
--------------------------------- */
+volume.addEventListener(
+"input",
+function(){
 
-volume.addEventListener("input",()=>{
-
-  volumeValue.textContent =
-    Math.round(Number(volume.value)*100) + "%";
-
+    document.getElementById("volumeText")
+    .innerHTML =
+    Math.round(volume.value * 100) + "%";
 });
 
-/* --------------------------------
-   COPY
--------------------------------- */
-
-copyBtn.addEventListener("click",async()=>{
-
-  if(!text.value){
-
-    setStatus("⚠️ Nothing to copy.");
-
-    return;
-  }
-
-  try{
-
-    await navigator.clipboard.writeText(text.value);
-
-    setStatus("📋 Text copied!");
-
-  }catch(error){
-
-    text.select();
-
-    document.execCommand("copy");
-
-    setStatus("📋 Text copied!");
-
-  }
-
-});
-
-/* --------------------------------
-   CLEAR
--------------------------------- */
-
-clearBtn.addEventListener("click",()=>{
-
-  synth.cancel();
-
-  text.value = "";
-
-  charCount.textContent = "0";
-
-  setStatus("🗑️ Text cleared.");
-
-  text.focus();
-
-});
-
-/* --------------------------------
-   BUTTON EVENTS
--------------------------------- */
-
-speakBtn.addEventListener("click",speakText);
-
-pauseBtn.addEventListener("click",pauseSpeech);
-
-resumeBtn.addEventListener("click",resumeSpeech);
-
-stopBtn.addEventListener("click",stopSpeech);
-
-/* --------------------------------
-   KEYBOARD SHORTCUTS
--------------------------------- */
-
-document.addEventListener("keydown",(event)=>{
-
-  if(event.ctrlKey && event.key === "Enter"){
-
-    event.preventDefault();
-
-    speakText();
-
-  }
-
-  if(event.key === "Escape"){
-
-    stopSpeech();
-
-  }
-
-});
-
-/* --------------------------------
-   BROWSER VOICE INITIALIZATION
--------------------------------- */
+languageBox.addEventListener(
+"change",
+filterVoices
+);
 
 if("speechSynthesis" in window){
 
-  loadVoices();
+    loadVoices();
 
-  if("onvoiceschanged" in synth){
-
-    synth.addEventListener(
-      "voiceschanged",
-      loadVoices
-    );
-
-  }
+    synth.onvoiceschanged =
+    loadVoices;
 
 }else{
 
-  setStatus(
-    "❌ Your browser does not support Text-to-Speech."
-  );
-
+    statusBox.innerHTML =
+    "❌ This browser does not support TTS.";
 }
-
-/* --------------------------------
-   PAGE VISIBILITY SAFETY
--------------------------------- */
-
-document.addEventListener(
-  "visibilitychange",
-  ()=>{
-
-    /*
-      Some mobile browsers pause speech
-      when the tab becomes inactive.
-      We don't automatically resume because
-      browser policies vary.
-    */
-
-  }
-);
 
 </script>
 
